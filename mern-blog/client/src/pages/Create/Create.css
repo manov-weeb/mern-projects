@@ -1,0 +1,21 @@
+.blog-form{
+     display: flex;
+     align-items: center;
+     gap: 5rem;
+}
+
+.create-text{
+     display: flex;
+     flex-direction: column;
+     flex: 2;
+}
+
+.blog-description{
+     height: 500px;
+     background-color: #fff;
+}
+
+.create-options{
+     display: flex;
+     flex-direction: column;
+}
