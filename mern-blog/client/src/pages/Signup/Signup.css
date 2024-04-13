@@ -1,0 +1,6 @@
+.error-field{
+     border-color: var(--color-red-secondary);
+     transition: var(--transition-3ms);
+    
+}
+
