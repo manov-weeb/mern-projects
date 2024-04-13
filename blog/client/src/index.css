@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+}
+
+:root{
+  --color-light-green: #ccffcc;
+  --color-white: #fff;
+  --color-gray: #dbdbdb;
+  --color-teal: #008080;
+  --color-red: #ff0000;
+  --color-black: #000;
+  --transition-1ms: 0.1s all ease-in-out;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+.app{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+}
+
+.container{
+    
+}
+
+.auth{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-light-green);
+  flex-direction: column;
+}
+
+.auth h1{
+  font-size: 2rem;
+}
+
+.auth form{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  background: var(--color-white);
+}
+
+.auth form input{
+  padding: 1rem;
+  border: none;
+  border-bottom: 1px solid grey;
+}
+
+.auth form button{
+  padding: 1rem;
+  background: var(--color-teal);
+color: var(--color-white);
+border: none;
+cursor: pointer;
+}
+
+.auth form span{
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.wrong-auth-error{
+  text-align: center;
+  color: var(--color-red);
+}
+
+nav{
+  font-size: 2rem;
+}
+
+nav .container{
+  display: flex;
+  padding: 2rem 3rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo img{
+  width: 120px;
+}
+
+.links{
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link{
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.links span{
+  cursor: pointer;
+}
+
+.write{
+
+  background-color: var(--color-light-green);
+ padding: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all ease;
+  border: 1px solid var(--color-white);
+}
+
+.write:hover{
+  color: var(--color-teal);
+  background: var(--color-white);
+  border-color:  var(--color-teal);
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  margin-top: 10rem;
+  padding: 2rem;
+  background-color: var(--color-light-green);
+  justify-content: space-around;
+}
+
+footer img{
+  width: 120px;
+}
+
+.home{
+  width: 1024px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+}
+
+.home .posts{
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15rem;
+
+}
+
+.post{
+  display: flex;
+  gap: 10rem;
+
+}
+
+.post:nth-child(2n+1){
+  flex-direction: row-reverse;
+}
+
+.post .img-container{
+  flex: 2;
+  position: relative;
+  
+
+}
+
+.post .img-container::after{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: var(--color-light-green);
+  top: 2rem;
+  left: 2rem;
+  z-index: -1;
+}
+
+.post .img-container img{
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+.post .post-content{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post .post-content h2{
+  font-size: 4rem;
+  font-weight: 500;
+  color: var(--color-black);
+  transition: var(--transition-1ms);
+  line-height: 1.5;
+
+
+  
+}
+
+.post .post-content h2:hover{
+  font-weight: 800;
+}
+
+.post .post-content p{
+  font-size: 1.8rem;
+}
+
+.post .post-content button{
+  width: max-content;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--color-teal);
+  cursor: pointer;
+  background: var(--color-white);
+  color: var(--color-teal);
+  transition: var(--transition-1ms);
+}
+
+.post .post-content button:hover{
+  border-color: var(--color-white);
+  background: var(--color-teal);
+  color: var(--color-white);
+}
+
+.single-post{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0 10rem;
+}
+
+.single-post-content{
+    width: 1000px;
+    flex: 5;
+    
+}
+
+.single-post-content img{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+
+}
+.single-post-content .post-user{
+
+}
+
+.post-user img{
+  height: 50px;
+  width: 50px;border-radius: 50%;
+}
+
+.edit-and-delete{
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-and-delete img{
+  height: 3rem;width: 3rem;
+}
+
+.single-post h1{
+  font-size: 4.2rem;
+
+}
+
+.single-post p{
+  text-align: justify;
+  line-height: 20px;
+  font-size: 1.2rem;
+}
+
+.menu{
+  flex: 2;
+}
+
+.menu .post{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu .post img{
+  width: 100%;
+  height:200px;
+  object-fit: contain;
+}
+
+.create{
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  width: 1000px;
+  align-items: center;
+  justify-content: space-between
+}
+
+.create-content{
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.create-content:input{
+  padding: 1rem;
+  border: 1px solid lightgrey;
+}
+
+.create-menu{
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
+ 
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.create-menu .item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-menu .item h1{
+  font-size: 2rem;
+}
+
+.editorContainer{
+  height: 400px;
+  border: 1px solid lightgray;
+}
+
+
+.editorContainer .editor{
+  height: 100%;
+  border: none;
+}
