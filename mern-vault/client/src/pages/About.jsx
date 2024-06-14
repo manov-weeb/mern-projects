@@ -35,7 +35,7 @@ const About = () => {
         </div>
         <div className="flex justify-center items-center mt-8">
           <a
-            href="https://github.com/yourusername/your-repo"
+            href="https://github.com/manov-weeb/mern-projects/tree/main/mern-vault"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center text-gray-600 hover:text-gray-800"
