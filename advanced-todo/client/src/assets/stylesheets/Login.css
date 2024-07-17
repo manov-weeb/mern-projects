@@ -1,0 +1,81 @@
+/* Container */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  margin: auto;
+  max-width: 400px;
+  transform: translateY(25%);
+}
+
+.login-container h2 {
+  font-size: 2rem;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem ;
+}
+
+.login-form input {
+  margin: 1rem 0;
+  padding: 1.3rem 1.2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 1.75rem;
+  background-color: rgb(230, 230, 230);
+}
+
+/* Password Container */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  flex: 1;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.toggle-password:hover {
+  color: #0056b3;
+}
+
+/* Submit Button */
+.login-button {
+  padding: 1rem 0.75rem;
+  background-color: var(--color-danger);
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
+
+.login-button:hover {
+  opacity: 0.75;
+}
+
+/* Link */
+.login-container p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}

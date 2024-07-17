@@ -1,0 +1,195 @@
+.task-div {
+  background-color: #fff;
+  width: 400px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.task-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+/* Menu button styling */
+.task-header ion-icon {
+  cursor: pointer;
+  transition: 0.3s all ease;
+  border-radius: 50%;
+  padding: 6px;
+  font-size: 2rem;
+}
+
+.task-header > ion-icon:hover {
+  background: rgba(185, 183, 183, 0.1);
+}
+
+.task-menu{
+  position: relative;
+}
+
+.task-menu-options {
+position: absolute;
+display: flex;
+flex-direction: column;
+align-items: center;
+/* justify-content; */
+background: #fff;
+width: 100px;
+
+padding: 0rem 0;
+right: 0%;
+top: 40%;
+z-index: 2;
+overflow: hidden;
+border-radius: 5px;
+box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+transform: scale(0);
+transform-origin: top right;
+transition: 0.2s all ease;
+}
+
+.task-menu:hover .task-menu-options{
+  transform: scale(1);
+}
+
+.menu-option{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-option > ion-icon{
+  font-size: 12px;
+}
+
+.menu-option p{
+  text-align: left;
+  font-size: 12px;
+  
+}
+
+.menu-option:hover{
+  background: rgba(185, 183, 183, 0.1);
+}
+
+.task-options {
+display: flex;
+flex-direction: column;
+border: 2px solid red;
+}
+
+.task-menu-options button:hover {
+background-color: var(--color-primary);
+color: white;
+}
+
+.task-menu:hover .task-menu-options {
+display: block;
+}
+
+
+/* Timing section containing created and due dates */
+.task-timing {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Icon and date styling */
+.task-timing span {
+  display: flex;
+  align-items: center;
+}
+
+/* Icon styles for calendar and flag */
+.task-timing ion-icon {
+  margin-right: 4px;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Priority button styling */
+.priority-button {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  text-transform: capitalize;
+}
+
+.priority-button.low {
+  background-color: var(--color-green); /* Green */
+}
+
+.priority-button.medium {
+  background-color: var(--color-primary); /* Yellow */
+}
+
+.priority-button.high {
+  background-color: var(--color-secondary); /* Red */
+}
+
+/* Category button styling */
+.category-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  text-transform: capitalize;
+  margin-left: 4px;
+}
+
+/* Example specific category colors */
+.category-button.work {
+  background-color: #17a2b8; /* Teal for work */
+}
+
+.category-button.academics {
+  background-color: rgba(15, 184, 66, 0.596); /* Teal for work */
+}
+
+.category-button.personal {
+  background-color: #6f42c1; /* Purple for personal */
+}
+
+.category-button.shopping {
+  background-color: #ffc107; /* Yellow for shopping */
+}
+
+.category-button.health {
+  background-color: #dc3545; /* Red for health */
+}
+
+/* Checkbox styling */
+.task-completed-checkbox {
+  cursor: pointer;
+}

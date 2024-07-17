@@ -1,0 +1,65 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 1.5rem 5rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left img {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.navbar-left span {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-yellow);
+  font-style: italic;
+}
+
+.navbar-right .nav-links {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right .nav-links li {
+  margin-left: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--color-primary); /* Button background color */
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #007bff; /* Hover background color */
+  color: #fff; /* Hover text color */
+}

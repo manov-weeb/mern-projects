@@ -1,0 +1,82 @@
+/* User.css */
+
+.user-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.user-profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 3px solid #007bff;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-details p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.user-details strong {
+  font-weight: bold;
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.action-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.action-button.delete {
+  background-color: #dc3545;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .user-container {
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .user-profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+
+  .action-buttons {
+    justify-content: space-between;
+  }
+}
