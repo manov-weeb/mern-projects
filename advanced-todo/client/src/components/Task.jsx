@@ -4,6 +4,8 @@ import "../assets/stylesheets/Task.css";
 import { format } from "date-fns";
 import { deleteTodo, updateTodo } from "../../features/todos/todoSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Task = ({ _id, title, createdDate, dueDate, priority, category, isCompleted }) => {
   const dispatch = useDispatch();
@@ -23,12 +25,25 @@ const Task = ({ _id, title, createdDate, dueDate, priority, category, isComplete
     const updatedStatus = !completed;
     setCompleted(updatedStatus);
 
-    dispatch(updateTodo({ _id, completed: updatedStatus }));
+    dispatch(updateTodo({ _id, isCompleted: updatedStatus }))
+      .unwrap()
+      .then(() => {
+        toast.success("Todo status updated successfully!");
+      })
+      .catch((error) => {
+        toast.error("Error updating todo status: " + error.message);
+      });
   };
 
-  const handleDelete = (id) => {
-    console.log("deleting todo ", id);
-    dispatch(deleteTodo(_id));
+  const handleDelete = () => {
+    dispatch(deleteTodo(_id))
+      .unwrap()
+      .then(() => {
+        toast.success("Todo deleted successfully!");
+      })
+      .catch((error) => {
+        toast.error("Error deleting todo: " + error.message);
+      });
   };
 
   return (
@@ -48,7 +63,7 @@ const Task = ({ _id, title, createdDate, dueDate, priority, category, isComplete
               <ion-icon name="create-outline"></ion-icon>
               <p>Edit</p>
             </li>
-            <li onClick={()=>handleDelete(_id)} className="menu-option">
+            <li onClick={handleDelete} className="menu-option">
               <ion-icon name="trash-outline"></ion-icon>
               <p>Delete</p>
             </li>
@@ -79,7 +94,6 @@ const Task = ({ _id, title, createdDate, dueDate, priority, category, isComplete
           {category}
         </button>
         </div>
-      
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/stylesheets/Signup.css";
-import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { signupUser } from "../../features/auth/authSlice";
 import { GoogleSignup } from "../components";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -22,31 +22,29 @@ const Signup = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const { username, email, password } = form;
+
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await dispatch(signupUser(form)).unwrap();
-      if (response && !isLoading && !error) {
-        console.log(response);
+    dispatch(signupUser(form))
+      .unwrap()
+      .then(() => {
+        toast.success("Signup successful! Redirecting to login...");
         navigate("/log-in");
-      }
-    } catch (error) {
-      console.log("Sign Up Error: ", error);
-    }
+      })
+      .catch((error) => {
+        toast.error("Signup failed: " + error.message);
+      });
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  
 
   return (
     <div className="signup-container">

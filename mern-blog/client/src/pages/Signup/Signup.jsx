@@ -85,7 +85,7 @@ const Signup = () => {
 
   return (
     <div className="form-container">
-      <h2 className="form-header"> Create a Blog Account </h2>
+      <h2 className="form-header"> Create a Storyfy Account </h2>
       <form className="signup-form">
         <label htmlFor="name">Name</label>
         <input
@@ -100,7 +100,7 @@ const Signup = () => {
 
         <label htmlFor="email">Email</label>
         <input
-          className={emailError && "error-field"}
+          // className={emailError ? "error-field" : ""}
           id="email"
           name="email"
           value={inputs.email}
@@ -112,7 +112,7 @@ const Signup = () => {
 
         <label htmlFor="password">Password</label>
         <input
-          className={passwordError && "error-field"}
+          // className={passwordError ? "error-field" : ""}
           id="password"
           required
           value={inputs.password}
@@ -124,7 +124,7 @@ const Signup = () => {
 
         <label htmlFor="cnf-password">Confirm Password</label>
         <input
-          className={isPasswordMatch && "error-field"}
+          // className={isPasswordMatch ? "error-field": ""}
           id="cnf-password"
           value={inputs.cnfPassword}
           name="cnfPassword"

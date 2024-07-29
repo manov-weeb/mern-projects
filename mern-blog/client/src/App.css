@@ -7,7 +7,9 @@
   list-style: none;
   text-decoration: none;
   font-family: "Poppins", sans-serif;
+  
 }
+
 
 html {
   font-size: 62.5%;
@@ -16,7 +18,7 @@ html {
 :root {
   --background: #e2f0f9;
   --color-yellow: #f3f33b;
-  --color-red: #df4c73;
+  --color-red: #fa4b7a;
   --color-red-secondary: #ff99b4;
   --color-blue: #65b1fd;
   --color-white: #fff;
@@ -27,6 +29,12 @@ html {
 
 body {
   background-color: var(--background);
+}
+
+button{
+  border: none;
+  outline: none;
+  
 }
 
 .form-header{

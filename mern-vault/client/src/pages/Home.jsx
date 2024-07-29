@@ -54,7 +54,7 @@ const Home = () => {
               <Link to="/sign-in" className="text-blue-600 hover:underline">
                 sign in
               </Link>{' '}
-              to access your profile.
+              to access your profile. Or <Link className="text-blue-600 hover:underline" to="/sign-up" > Create A New Account</Link>
             </p>
           </div>
         )}

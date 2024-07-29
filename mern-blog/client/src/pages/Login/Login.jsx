@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { STATUSES, login } from "../../store/UserSlice";
 
 const Login = () => {
@@ -22,6 +22,12 @@ const Login = () => {
     password: "",
   });
 
+  useEffect(() => {
+    if (status === STATUSES.IDLE && currentUser) {
+      navigate("/");
+    }
+  }, [status, currentUser, navigate]);
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -29,22 +35,21 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(login(inputs));
+      await dispatch(login(inputs));
 
       if (!loginError && currentUser) {
         navigate("/");
       } else {
-        console.log(loginError);
         setError(loginError);
       }
-    } catch (error) {
+    } catch (err) {
       setError("Failed to Login");
-      console.error("Error:", error);
+      console.error("Error:", err);
     }
   };
 
   return (
-    !currentUser ?(
+    !currentUser ? (
       <div className="form-container">
         <h2 className="form-header"> Welcome Back! </h2>
         <form className="signup-form" onSubmit={handleSubmit}>
@@ -75,7 +80,7 @@ const Login = () => {
           </button>
 
           <span className="form-message">
-            Don't Have An Account? Click here to create one.
+            Don't Have An Account? <Link to={"/signup"}>Click here to create one.</Link>
           </span>
         </form>
       </div>

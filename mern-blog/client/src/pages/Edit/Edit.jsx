@@ -1,132 +1,137 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../Create/Create.css";
 
 const Edit = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [title, setTitle] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [value, setValue] = useState("");
   const [category, setCategory] = useState("");
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const getPost = async () => {
-      const response = await axios.get(
-        `http://localhost:5000/api/v1/post/${id}`
-      );
-      console.log(response.data.user._id);
-      const post = response.data;
-      setTitle(post.title);
-      setValue(post.description);
-      setCategory(post.category);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/v1/post/${id}`);
+        const post = response.data;
+        setTitle(post.title);
+        setValue(post.description);
+        setCategory(post.category);
+        if (post.image) {
+          setFile(post.image);
+        }
+        console.log(category)
+      } catch (error) {
+        console.error("Error fetching post:", error);
+      }
     };
 
     getPost();
-  }, []);
+
+   
+  }, [id]);
+  useEffect(()=>{console.log(category)}, [category])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const updatedData = new FormData();
 
-    updatedData.set("id", id);
-    updatedData.set("title", title);
-    updatedData.set("description", value);
-    updatedData.set("category", category);
+    updatedData.append("id", id);
+    updatedData.append("title", title);
+    updatedData.append("description", value);
+    updatedData.append("category", category);
 
-    if (file?.[0]) {
-      updatedData.set("image", file?.[0]);
+    if (file) {
+      updatedData.append("image", file);
     }
 
-    const response = await axios.put(
-      `http://localhost:5000/api/v1/post/${id}`,
-      updatedData,
-      {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/v1/post/${id}`, updatedData, {
         withCredentials: true,
-      }
-    );
-    console.log(response.data);
+      });
+      console.log(response.data);
+      // Navigate back to the post page
+      navigate(`/post/${id}`);
+    } catch (error) {
+      console.error("Error updating post:", error);
+    }
   };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Update the file state with the selected file
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value); // Update the category state
+  };
+
   return (
-    <form className="blog-form">
-      <div className="create-text">
-        Write as {currentUser.name}
-        <input
-          type="text"
-          value={title}
-          onChange={(ev) => setTitle(ev.target.value)}
-          placeholder="Blog Title Here"
-        ></input>
-        <ReactQuill
-          className="blog-description"
-          theme="snow"
-          value={value}
-          onChange={setValue}
-        />
-      </div>
-      <div className="create-options">
-        <div className="category-menu">
+    <div className="edit-container">
+      <form className="blog-form" onSubmit={handleSubmit}>
+        <div className="create-text">
+          <h2 className="write-as">Edit as {currentUser.name}</h2>
           <input
-            checked={category === "tech"}
-            type="radio"
-            name=""
-            id="tech"
-            value={"tech"}
-            onChange={(e) => setCategory(e.target.value)}
+            type="text"
+            className="blog-title"
+            value={title}
+            onChange={(ev) => setTitle(ev.target.value)}
+            placeholder="Blog Title Here"
           />
-          <label htmlFor="tech">Tech</label>
-          <input
-            checked={category === "health"}
-            type="radio"
-            name=""
-            id="health"
-            value={"health"}
-            onChange={(e) => setCategory(e.target.value)}
+          <ReactQuill
+            className="blog-description"
+            theme="snow"
+            value={value}
+            onChange={setValue}
+            placeholder="Write your blog here..."
           />
-          <label htmlFor="health">Health</label>
-          <input
-            checked={category === "finance"}
-            type="radio"
-            name=""
-            id="finance"
-            value={"finance"}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <label htmlFor="tech">Finance</label>
-          <input
-            checked={category === "art"}
-            type="radio"
-            name=""
-            id="art"
-            value={"art"}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <label htmlFor="tech">Art</label>
-          <input
-            checked={category === "other"}
-            type="radio"
-            name=""
-            id="other"
-            value={"other"}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <label htmlFor="tech">Other</label>
         </div>
-        <input
-          type="file"
-          name="file"
-          id=""
-          onChange={(ev) => setFile(ev.target.files)}
-        />
-        <button className="publish-btn" onClick={handleSubmit}>
-          Update
-        </button>
-      </div>
-    </form>
+        <div className="create-options">
+          <div className="category-menu">
+            {["tech", "health", "finance", "anime", "other"].map((cat) => (
+              <React.Fragment key={cat}>
+                <input
+                  type="radio"
+                  name="category"
+                  id={cat}
+                  value={cat}
+                  checked={category === cat}
+                  onChange={handleCategoryChange}
+                />
+                <label htmlFor={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</label>
+              </React.Fragment>
+            ))}
+          </div>
+          <input
+            type="file"
+            className="file-input"
+            name="file"
+            id="file"
+            onChange={handleFileChange}
+          />
+          <label htmlFor="file" className="file-label">
+            Upload a Picture
+          </label>
+          <button type="submit" className="publish-btn">
+            Update
+          </button>
+        </div>
+        <div className="file-preview">
+          {file ? (
+            <span className="filename">Filename: {file.name}</span> // Display file name instead of splitting
+          ) : (
+            <span>No Picture Chosen</span>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 

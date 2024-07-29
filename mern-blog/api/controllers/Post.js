@@ -5,17 +5,20 @@ import fs from "fs";
 
 export const getAllPosts = async (req, res, next) => {
   try {
-    const { category } = req.query;
-    let posts;
+    const { category, user } = req.query;
+    let query = {};
+    
     if (category) {
-      posts = await Post.find({ category })
-        .populate("user", ["_id", "name"])
-        .sort({ createdAt: -1 });
-    } else {
-      posts = await Post.find()
-        .populate("user", ["_id", "name"])
-        .sort({ createdAt: -1 });
+      query.category = category;
     }
+
+    if (user) {
+      query.user = user;
+    }
+
+    const posts = await Post.find(query)
+      .populate("user", ["_id", "name"])
+      .sort({ createdAt: -1 });
 
     res.json(posts);
   } catch (error) {
@@ -29,10 +32,8 @@ export const getAllPosts = async (req, res, next) => {
 
 export const getPost = async (req, res, next) => {
   try {
-    const post = await Post.findOne({ _id: req.params.id }).populate(
-      "user",
-      ["_id", "name"]
-    );
+    const post = await Post.findOne({ _id: req.params.id })
+      .populate("user", ["_id", "name"]);
     res.json(post);
   } catch (error) {
     console.log(error);
@@ -51,6 +52,7 @@ export const publishPost = async (req, res, next) => {
   fs.renameSync(path, imgPath);
 
   const { access_token } = req.cookies;
+
   jwt.verify(access_token, process.env.SECRET_KEY, {}, async (err, info) => {
     if (err) {
       throw err;
@@ -85,7 +87,7 @@ export const editPost = async (req, res, next) => {
   try {
     const userInfo = jwt.verify(access_token, process.env.SECRET_KEY);
 
-    const { id, title, description } = req.body;
+    const { id, title, description, category } = req.body;
     const post = await Post.findById(id);
 
     if (!post) {
@@ -95,8 +97,7 @@ export const editPost = async (req, res, next) => {
       });
     }
 
-    const isAuthor =
-      JSON.stringify(post.user) === JSON.stringify(userInfo.user.id);
+    const isAuthor = post.user.toString() === userInfo.user.id;
 
     if (!isAuthor) {
       return res.status(constants.BAD_REQUEST.code).json({
@@ -109,6 +110,7 @@ export const editPost = async (req, res, next) => {
 
     post.title = title;
     post.description = description;
+    post.category = category; // Update category
     post.image = newPath ? newPath : post.image;
 
     await post.save();
@@ -123,4 +125,45 @@ export const editPost = async (req, res, next) => {
   }
 };
 
-export const deletePost = async () => {};
+
+export const deletePost = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const { access_token } = req.cookies;
+    const userInfo = jwt.verify(access_token, process.env.SECRET_KEY);
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(constants.NOT_FOUND.code).json({
+        success: false,
+        message: `${constants.NOT_FOUND.message} Post not found`,
+      });
+    }
+
+    const isAuthor = post.user.toString() === userInfo.user.id;
+
+    if (!isAuthor) {
+      return res.status(constants.BAD_REQUEST.code).json({
+        success: false,
+        message: "Wrong Author",
+        postUser: post.user,
+        actualUser: userInfo.user.id,
+      });
+    }
+
+    await post.deleteOne(); 
+
+    res.json({
+      success: true,
+      message: "Post deleted successfully",
+    });
+  } catch (error) { 
+    console.error("Error deleting post:", error);
+    return res.status(constants.SERVER_ERROR.code).json({
+      success: false,
+      message: constants.SERVER_ERROR.message,
+    });
+  }
+};
